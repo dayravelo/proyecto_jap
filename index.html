@@ -13,41 +13,50 @@
     body {
       background-color: rgb(248, 249, 250);
     }
+    main {
+      text-align: center;
+    }
   </style>
 </head>
 
 <body>
   <main class="form-signin">
-    <form>
-      <div class="text-center p-4">
-        <img class="mb-4" src="img/login.png" alt="" width="400" height="170">
-        <h2>Iniciar Sesión</h2>
-        <p class="lead">Ingresa los datos para iniciar sesión</p>
-      
-      <div class="container">
+  <div class="container">
+    <div class="abs-center"></div>
+      <form>
+        <div class="border p-3 form">
+          <img class="mb-4" src="img/login.png" alt="" width="400" height="170">
+          <h2>Iniciar Sesión</h2>
+          <p class="lead">Ingresa los datos para iniciar sesión</p>
 
-        <div class="col-sm-6">
-          <label for="email" class="form-label">Email</label>
-          <input type="email" class="form-control" id="email">
-        </div>
+          <div class="form-group">
+            <label for="email" class="form-label">Email</label>
+            <input type="email" class="form-control" id="email">
+          </div>
+          
+          <br>
       
-        <br>
+          <div class="form-group">
+            <label for="password" class="form-label">Contraseña</label>
+            <input type="password" class="form-control" id="password">
+          </div>  
 
-        <div class="col-sm-6">
-          <label for="password" class="form-label">Contraseña</label>
-          <input type="password" class="form-control" id="password">
+          <br>
+
+          <label>
+            <input type="checkbox" value="remember-me"> Recordar mi usuario y contraseña
+          </label>
+          
+          <br>
+          <br>
+
+          <button class="btn btn-primary" type="button" id="iniciarSesion">Iniciar Sesión</button>
+           
         </div>
-        <br>
-        <label>
-          <input type="checkbox" value="remember-me"> Recordar mi usuario y contraseña
-        </label>
-        <br>
-        <br>
-        <button class="btn btn-primary" type="button" id="iniciarSesion" onclick="validarInicioSesion()">Iniciar Sesión</button>
-      
-      </div>
+      </form>
     </div>
-    </form>
+  </div>
+
   </main>
   <footer class="text-muted">
     <div class="container">
