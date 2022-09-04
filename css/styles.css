@@ -200,3 +200,7 @@ a.custom-card:hover {
   width: 450px;
   margin: 0 auto;
 }
+
+#labelRel {
+  font-family: 'Raleway', serif !important;
+}

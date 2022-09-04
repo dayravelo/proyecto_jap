@@ -40,13 +40,13 @@ let getJSONData = function(url){
     });
 }
 
-//realicé esto en este js para no repetir código
-
+//Función que obtiene del Local Storage una key "userName" y la muestra en el elemento HTML con id "userName"
 function addUserName(){
   let userName = localStorage.getItem("userName");
   document.getElementById("userName").innerHTML = userName;
 }
 
+//Cada vez que se carga la página, se llama a la función addUserName para que aparezca el nombre del usuario que está logueado 
 document.addEventListener("DOMContentLoaded", function(e){
   addUserName();
 });

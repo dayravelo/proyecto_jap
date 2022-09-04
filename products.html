@@ -46,12 +46,12 @@
       <div class="row">
         <div class="col text-end">
           <div class="btn-group btn-group-toggle mb-4" data-bs-toggle="buttons">
-            <input type="radio" class="btn-check" name="options" id="sortAsc">
-            <label class="btn btn-light" for="sortAsc">MENOR PRECIO</label>
-            <input type="radio" class="btn-check" name="options" id="sortDesc">
-            <label class="btn btn-light" for="sortDesc">MAYOR PRECIO</label>
-            <input type="radio" class="btn-check" name="options" id="sortByCount" checked>
-            <label class="btn btn-light" for="sortByCount"><i class="fas fa-sort-amount-down mr-1"></i></label>
+            <input type="radio" class="btn-check" name="options" id="sortAscCost">
+            <label class="btn btn-light" for="sortAscCost"><i class="fas fa-sort-amount-down mr-1"></i>$</label>
+            <input type="radio" class="btn-check" name="options" id="sortDescCost">
+            <label class="btn btn-light" for="sortDescCost"><i class="fas fa-sort-amount-up mr-1"></i>$</label>
+            <input type="radio" class="btn-check" name="options" id="sortBySoldCount" checked>
+            <label class="btn btn-light" for="sortBySoldCount" id="labelRel"><i class="fas fa-sort-amount-down mr-1">Rel.</i></label>
           </div>
         </div>
       </div>
@@ -62,14 +62,14 @@
               <p class="font-weight-normal text-end my-2">Precio</p>
             </div>
             <div class="col">
-              <input class="form-control" type="number" placeholder="min." id="rangeFilterCountMin">
+              <input class="form-control" type="number" placeholder="min." id="rangeFilterCostMin">
             </div>
             <div class="col">
-              <input class="form-control" type="number" placeholder="máx." id="rangeFilterCountMax">
+              <input class="form-control" type="number" placeholder="máx." id="rangeFilterCostMax">
             </div>
             <div class="col-3 p-0">
               <div class="btn-group" role="group">
-                <button class="btn btn-light btn-block" id="rangeFilterCount">Filtrar</button>
+                <button class="btn btn-light btn-block" id="rangeFilterCost">Filtrar</button>
                 <button class="btn btn-link btn-sm" id="clearRangeFilter">Limpiar</button>
               </div>
             </div>
