@@ -1,3 +1,7 @@
+function setUserName(name) {
+    localStorage.setItem("userName", name);
+}
+
 function redirectPagPrincipal() {
     window.location.href = "pagprincipal.html";
 }
@@ -15,6 +19,7 @@ document.getElementById("iniciarSesion").addEventListener("click", function(){
         alert("La contraseña no puede ser vacía");
     } 
     if (!algoVacio){
+        setUserName(email);
         redirectPagPrincipal();
     }
 });

@@ -39,3 +39,14 @@ let getJSONData = function(url){
         return result;
     });
 }
+
+//realicé esto en este js para no repetir código
+
+function addUserName(){
+  let userName = localStorage.getItem("userName");
+  document.getElementById("userName").innerHTML = userName;
+}
+
+document.addEventListener("DOMContentLoaded", function(e){
+  addUserName();
+});
