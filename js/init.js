@@ -40,9 +40,14 @@ let getJSONData = function(url){
     });
 }
 
-//Función que obtiene del Local Storage una key "userName" y la muestra en el elemento HTML con id "userName"
+//Función que obtiene del Local Storage una key "userName"
+function getUserName(){
+  return userName = localStorage.getItem("userName");
+}
+
+//Función que obtiene del Local Storage llama a la función getUserName la muestra en el elemento HTML con id "userName"
 function addUserName(){
-  let userName = localStorage.getItem("userName");
+  let userName = getUserName();
   document.getElementById("userName").innerHTML = userName;
 }
 

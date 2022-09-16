@@ -204,3 +204,7 @@ a.custom-card:hover {
 #labelRel {
   font-family: 'Raleway', serif !important;
 }
+
+.checked {
+  color: red;
+}

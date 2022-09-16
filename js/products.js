@@ -1,7 +1,6 @@
 const ORDER_ASC_BY_COST= "ASC_COST";
 const ORDER_DESC_BY_COST = "DESC_COST";
 const ORDER_BY_SOLD_COUNT = "SOLD_COUNT";
-const EXTENSION = ".json";
 let currentProductArray = [];
 let auxProductArray = [];
 let minCost = undefined;
@@ -11,12 +10,18 @@ let currentSortCriteria = undefined;
 //Función que obtiene la key "catID" del Local Storage y retorna la URL correspondiente al producto seleccionado de la lista
 function getCatID() {
     let catID = localStorage.getItem("catID");
-    return PRODUCTS_URL + catID + EXTENSION;
+    return PRODUCTS_URL + catID + EXT_TYPE;
 }
 
 function productTittle(tittle){
     let htmlTitulo = `<h2>${tittle}</h2>`
     document.getElementById("tituloProducto").innerHTML = htmlTitulo;
+}
+
+//Función que guarda en el Local Storage el productId, y redirige al usuario a la página product-info.html
+function setProductID(productId) {
+    localStorage.setItem("productId", productId);
+    window.location = "product-info.html"
 }
 
 /*Función que recibe por parametros un minimo, un maximo y una lista, y retorna la lista filtrada segun 
@@ -39,7 +44,7 @@ function showProductList(){
         let product = auxProductArray[i];
 
             htmlContentToAppend += `
-                <div class="list-group-item list-group-item-action cursor-active">
+                <div onclick="setProductID(${product.id})" class="list-group-item list-group-item-action cursor-active">
                     <div class="row">
                         <div class="col-3">
                             <img src="${product.image}" alt="${product.description}" class="img-thumbnail">

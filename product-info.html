@@ -40,11 +40,42 @@
     </div>
   </nav>
   <main>
-    <div class="container">
-      <div class="alert alert-danger text-center" role="alert">
-        <h4 class="alert-heading">Funcionalidad en desarrollo</h4>
+    <div id="tituloProducto" class="text-center p-4">      
+    </div>
+    <div id="infoProduct" class="container">
+    </div>
+    </br>
+    <div class="container text-center">
+      <div class="row" id="productImages">
       </div>
     </div>
+    </br>
+    <div id="comments" class="container">   
+    </div>
+    </br>
+      <div class="container" id="newComment">        
+          <div class="list-group-item list-group-item-action">
+            <strong> <p class="mb-1">Comentar </p> </strong>
+            <div class="mb-3">
+              <label for="frmGroupExampleInput" class="form-label">Tu Puntuación: </label>
+            <select id ="score" class="form-select" aria-label="Default select example">
+              <option value="0" selected>Elija una puntuación</option>
+              <option value="1">1</option>
+              <option value="2">2</option>
+              <option value="3">3</option>
+              <option value="4">4</option>
+              <option value="5">5</option>
+            </select>   
+            </div>
+            <div class="mb-3">
+              <label for="formGroupExampleInput" class="form-label">Tu opinión: </label>
+              <textarea class="form-control" id="textComment" rows="5"></textarea>
+            </div>
+            <div class="col-auto">
+                <button id="sendComment" class="btn btn-primary mb-3">Enviar</button>
+            </div>
+          </div> 
+      </div>
   </main>
   <footer class="text-muted">
     <div class="container">
