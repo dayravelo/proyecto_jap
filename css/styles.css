@@ -206,5 +206,25 @@ a.custom-card:hover {
 }
 
 .checked {
-  color: red;
+  color: #D31E05;
+}
+
+#userName {
+  vertical-align: middle;
+  color: white;
+  font-weight: bold;
+  margin: 0 0 0 -25%;
+}
+
+.card-text{
+  max-height: 200px;
+  overflow: auto;
+}
+
+.card{
+  width: 18rem;
+}
+
+.imagesCarousel {
+  max-width: 1000px;
 }

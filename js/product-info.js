@@ -3,6 +3,7 @@ let productId = "";
 let currentProductInfo;
 let currentProductImages = [];
 let currentProductComments = [];
+let relatedProducts = [];
 
 //Función que obtiene el elemento "productId" guardado anteriormente en el Local Storage
 function getProductID() {
@@ -43,6 +44,53 @@ function showProductImages(currentProductImages){
     }
 
     document.getElementById("productImages").innerHTML = htmlContentToAppend;
+}
+
+function showProductImagesCarrousel(currentProductImages){
+    
+    let htmlCarouselIndicators = `<div class="carousel-indicators" id="indicators">
+                                    <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="0" class="active" aria-current="true" aria-label="Slide 1"></button>
+                                `;
+
+    let htmlCarrouselInner = `<div class="carousel-inner" id="inner">
+                                <div class="carousel-item active">
+                                    <img src="${currentProductImages[0]}" class="d-block w-100">
+                                </div>`;
+
+
+
+
+    for(let i = 1; i < currentProductImages.length; i++){
+        let image = currentProductImages[i];
+
+        htmlCarouselIndicators += `
+                                 <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="${i}" aria-label="Slide ${i+1}"></button>
+                                 `
+        
+        htmlCarrouselInner += `
+                                <div class="carousel-item">
+                                    <img src="${image}" class="d-block w-100">
+                                </div>
+                              `;
+
+    }
+    htmlCarouselIndicators += `</div>`;
+    htmlCarrouselInner += `</div>
+                            `;
+    let htmlButtons = ` <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide="prev">
+                            <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                            <span class="visually-hidden">Previous</span>
+                        </button>
+                        <button class="carousel-control-next" type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide="next">
+                            <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                            <span class="visually-hidden">Next</span>
+                        </button>`;
+
+    document.getElementById("carouselExampleIndicators").innerHTML += htmlCarouselIndicators;
+    document.getElementById("carouselExampleIndicators").innerHTML += htmlCarrouselInner;
+    document.getElementById("carouselExampleIndicators").innerHTML += htmlButtons;
+
+
 }
 
 //Función que muestra la información de un producto
@@ -147,6 +195,30 @@ function clear(selectElement){
     selectElement.selectedIndex = 0;
 }
 
+//Función que muestra al usuario los productos relacionados al producto que está mirando
+function showRelatedProducts(relatedProducts){
+
+    htmlRelatedProducts = "";
+    if(relatedProducts.length > 0){
+        for(let i = 0; i < relatedProducts.length; i++){
+            let relatedProduct = relatedProducts[i];
+            htmlRelatedProducts += `
+                                    <div class="card text-center" onclick="setProductID(${relatedProduct.id})">
+                                        <img src="${relatedProduct.image}" alt="${relatedProduct.name}" class="card-img-top">
+                                        <div class="card-body">
+                                            <h5 class="card-tittle">${relatedProduct.name}</h5>
+                                        </div>
+                                    </div>
+                                `;
+        }
+    } else {
+        htmlRelatedProducts = `<p>No existen productos relacionados.</p>`;
+    }
+
+    document.getElementById("relatedProducts").innerHTML = htmlRelatedProducts;
+
+}
+
 //Escucha de evento de carga de página
 document.addEventListener("DOMContentLoaded", function(e){
     productId = getProductID();
@@ -158,8 +230,11 @@ document.addEventListener("DOMContentLoaded", function(e){
         if(resultObj.status === "ok"){
             currentProductInfo = resultObj.data;
             currentProductImages = resultObj.data.images;
+            relatedProducts = resultObj.data.relatedProducts;
             showProductInfo(currentProductInfo);
-            showProductImages(currentProductImages);
+            //showProductImages(currentProductImages);
+            showProductImagesCarrousel(currentProductImages);
+            showRelatedProducts(relatedProducts);
         }
     });
 

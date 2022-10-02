@@ -18,12 +18,6 @@ function productTittle(tittle){
     document.getElementById("tituloProducto").innerHTML = htmlTitulo;
 }
 
-//Función que guarda en el Local Storage el productId, y redirige al usuario a la página product-info.html
-function setProductID(productId) {
-    localStorage.setItem("productId", productId);
-    window.location = "product-info.html"
-}
-
 /*Función que recibe por parametros un minimo, un maximo y una lista, y retorna la lista filtrada segun 
 si el costo de cada elemento de la lista se encuentra entre el mínimo y el máximo recibido*/
 function filterProductsByCost(min, max, list){
