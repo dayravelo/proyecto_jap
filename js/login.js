@@ -1,6 +1,9 @@
-//Función que guarda el email utilizado por el usuario en el Local Storage, bajo la key "userName"
-function setUserName(name) {
+const ID_USER = 25801;
+
+//Función que guarda el email utilizado por el usuario bajo la key "userName" y guarda el UserId bajo el Key "userId" , en el Local Storage
+function setUserInfo(name, id) {
     localStorage.setItem("userName", name);
+    localStorage.setItem("userId", id);
 }
 
 function redirectPagPrincipal() {
@@ -20,7 +23,7 @@ document.getElementById("iniciarSesion").addEventListener("click", function(){
         alert("La contraseña no puede ser vacía");
     } 
     if (!algoVacio) {
-        setUserName(email);
+        setUserInfo(email, ID_USER);
         redirectPagPrincipal();
     }
 });

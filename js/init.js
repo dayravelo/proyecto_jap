@@ -42,7 +42,12 @@ let getJSONData = function(url){
 
 //Función que obtiene del Local Storage una key "userName"
 function getUserName(){
-  return userName = localStorage.getItem("userName");
+  return localStorage.getItem("userName");
+}
+
+//Función que obtiene del Local Storage una key "userId"
+function getUserId(){
+  return localStorage.getItem("userId");
 }
 
 //Función que obtiene del Local Storage llama a la función getUserName la muestra en el elemento HTML con id "userName"
@@ -63,6 +68,7 @@ function logout(){
   if(confirm("Desea cerrar sesión?")){
     window.location.href = "index.html";
     localStorage.removeItem("userName");
+    localStorage.removeItem("userId");
   }
 }
 

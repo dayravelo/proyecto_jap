@@ -1,4 +1,5 @@
 const MAX_STARS = 5;
+const DEFAULT_COUNT = 1;
 let productId = "";
 let currentProductInfo;
 let currentProductImages = [];
@@ -97,13 +98,34 @@ function showProductImagesCarrousel(currentProductImages){
 function showProductInfo(){
 
     let htmlContentToAppend = "";
-
     htmlContentToAppend += `
                     
                         <div class="col">
                             <div class="d-flex w-100 justify-content-between">
                                 <strong> <h4 class="mb-1">${currentProductInfo.name}</h4> </strong>
+                                <button id="buy" class="float-end btn btn-success d-md-flex" type="button" data-bs-toggle="modal" data-bs-target="#exampleModal">
+                                    Comprar
+                                </button>
                             </div>
+                            <hr>
+                            <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                                <div class="modal-dialog">
+                                    <div class="modal-content">
+                                    <div class="modal-header">
+                                        <h1 class="modal-title fs-5" id="exampleModalLabel">¡Se añadió el producto a su carrito!</h1>
+                                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                    </div>
+                                    <div class="modal-body">
+                                        ¿Desea continuar comprando o dirigirse a su carrito de compras?
+                                    </div>
+                                    <div class="modal-footer">
+                                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Continuar comprando</button>
+                                        <button type="button" class="btn btn-primary" onclick="goToCarrito()">Mi carrito</button>
+                                    </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <a class="float-end" href="products.html">Volver al listado <</a>
                             <strong> <p class="mb-1">Precio: </p> </strong>
                             <p class="mb-1">${currentProductInfo.currency} ${currentProductInfo.cost}</p>
                             <strong> <p class="mb-1">Descripción:</p> </strong>
@@ -118,6 +140,33 @@ function showProductInfo(){
 
     document.getElementById("infoProduct").innerHTML = htmlContentToAppend;
     
+}
+
+function goToCarrito(){
+    window.location = "cart.html"
+}
+
+class Item{
+    constructor(id, name, count, unitCost, currency, image){
+        this.id = id;
+        this.name = name;
+        this.count = count;
+        this.unitCost = unitCost;
+        this.currency = currency;
+        this.image = image;
+    }
+}
+
+function itemToCart(id, name, unitCost, currency, image){
+
+    let newItem = new Item(id, name, DEFAULT_COUNT, unitCost, currency, image);
+    if(!localStorage.getItem("cart")){
+        let itemsInCart = [];
+        itemsInCart.push(newItem);
+        console.log(itemsInCart);
+    } else {
+        console.log("else");
+    }
 }
 
 //Función que recibe una lista de comentarios de un producto y muestra los comentarios de un producto determinado
@@ -263,4 +312,5 @@ document.addEventListener("DOMContentLoaded", function(e){
             alert("Debe ingresar una puntuación y un comentario!");
         }
     });
+    
 });

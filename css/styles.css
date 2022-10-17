@@ -228,3 +228,8 @@ a.custom-card:hover {
 .imagesCarousel {
   max-width: 1000px;
 }
+
+.imagesCart{
+  height: 50px;
+  width: 80px;
+}
