@@ -26,7 +26,7 @@
     <div class="text-center p-4">
       <h2>Carrito de compras</h2>
     </div>
-    <div class = "container">
+    <div class="container">
       <h5>Artículos a comprar</h5>
       <table class="table table-striped table-hover">
         <thead>
@@ -43,69 +43,185 @@
         <tbody id="cartTable">
         </tbody>
       </table>
+      <div id="divAlerts">
+      </div>
     </div>
     <br>
-    <div class="container">
+    <div class="container border-top">
+      <br>
       <h5>Tipo de envío</h5>
-      <div class="form-check">
-        <input class="form-check-input" type="radio" name="flexRadioDefault" id="flexRadioDefault1" checked>
-        <label class="form-check-label" for="flexRadioDefault1">
-          Premium 2 a 5 días (15%) 
-        </label>
-      </div>
-      <div class="form-check">
-        <input class="form-check-input" type="radio" name="flexRadioDefault" id="flexRadioDefault2">
-        <label class="form-check-label" for="flexRadioDefault2">
-          Express 5 a 8 días (7%)
-        </label>
-      </div>
-      <div class="form-check">
-        <input class="form-check-input" type="radio" name="flexRadioDefault" id="flexRadioDefault2">
-        <label class="form-check-label" for="flexRadioDefault2">
-          Standard 12 a 15 días (5%)
-        </label>
-      </div>
-      <br>
-      <h5>Dirección de envío</h5>
-      <div class="row g-3">
-        <div class="col">
-          <input type="text" class="form-control" placeholder="Calle" aria-label="Calle">
+      <form action="#" method="get" class="row mt-4 to-validate" id="form" novalidate>
+        <div class="d-block my-3">
+          <div class="custom-control custom-radio">
+            <input id="premiumradio" name="publicationType" type="radio" class="form-check-input" checked=""
+              required="">
+            <label class="custom-control-label" for="premiumradio">Premium 2 a 5 días (15%)</label>
+          </div>
+          <div class="custom-control custom-radio">
+            <input id="expressradio" name="publicationType" type="radio" class="form-check-input" required="">
+            <label class="custom-control-label" for="expressradio">Express 5 a 8 días (7%)</label>
+          </div>
+          <div class="custom-control custom-radio">
+            <input id="standardradio" name="publicationType" type="radio" class="form-check-input" required="">
+            <label class="custom-control-label" for="standardradio">Standard 12 a 15 días (5%)</label>
+          </div>
         </div>
-        <div class="col">
-          <input type="text" class="form-control" placeholder="Número" aria-label="Número">
+        <br>
+        <div class="border-top">
+          <br>
+          <h5>Dirección de envío</h5>
+
+          <div class="row g-3">
+            <div class="col">
+              <label for="calle" class="form-label">Calle</label>
+              <div class="form-group input-group has-validation">
+                <input id="calle" type="text" class="form-control" required>
+                <div class="invalid-feedback">Ingrese la calle</div>
+              </div>
+            </div>
+            <div class="col">
+              <label for="numero" class="form-label">Número</label>
+              <div class="form-group input-group has-validation">
+                <input id="numero" type="text" class="form-control" required>
+                <div class="invalid-feedback">Ingrese número de puerta</div>
+              </div>
+            </div>
+          </div>
+          <br>
+          <div class="row g-3">
+            <div class="col">
+              <label for="esquina" class="form-label">Esquina</label>
+              <div class="form-group input-group has-validation">
+                <input id="esquina" type="text" class="form-control" required>
+                <div class="invalid-feedback">Ingrese la esquina</div>
+              </div>
+            </div>
+            <div class="col">
+              <label for="departamento" class="form-label">Departamento</label>
+              <div class="form-group input-group has-validation">
+                <input id="departamento" type="text" class="form-control" required>
+                <div class="invalid-feedback">Ingrese el departamento</div>
+              </div>
+            </div>
+            <div class="invalid-feedback">Seleccione un departamento</div>
+          </div>
         </div>
-      </div>
-      <br>
-      <div class="row g-3">
-        <div class="col">
-          <input type="text" class="form-control" placeholder="Esquina" aria-label="Esquina">
-        </div>
-        <div class="col">
-          <select class="form-select" aria-label="Default select example">
-            <option selected>Elija Departamento</option>
-            <option value="1">Artigas</option>
-            <option value="2">Canelones</option>
-            <option value="3">Cerro Largo</option>
-            <option value="4">Colonia</option>
-            <option value="5">Durazno</option>
-            <option value="6">Flores</option>
-            <option value="7">Florida</option>
-            <option value="8">Lavalleja</option>
-            <option value="9">Maldonado</option>
-            <option value="10">Montevideo</option>
-            <option value="11">Paysandú</option>
-            <option value="12">Río Negro</option>
-            <option value="13">Rivera</option>
-            <option value="14">Rocha</option>
-            <option value="15">Salto</option>
-            <option value="16">San José</option>
-            <option value="17">Soriano</option>
-            <option value="18">Tacuarembó</option>
-            <option value="19">Treinta y Tres</option>
-          </select>
-        </div>
-      </div>
+
+
+      </form>
     </div>
+    <br>
+    <div class="container border-top" id="costos">
+      <br>
+      <h5>Costos</h5>
+      <br>
+      <div class="row border rounded">
+        <div class="col">
+          <div class="d-flex w-100 justify-content-between">
+            <strong>
+              <p class="mb-1">Subtotal</p>
+            </strong>
+            <p class="text-muted" id="subtotal">USD XXX</p>
+          </div>
+          <p class="mb-1">Costo unitario de los productos por cantidad</p>
+        </div>
+      </div>
+      <div class="row border rounded">
+        <div class="col">
+          <div class="d-flex w-100 justify-content-between">
+            <strong>
+              <p class="mb-1">Costo de envío</p>
+            </strong>
+            <small class="text-muted" id="shipCost">USD XXX</small>
+          </div>
+          <p class="mb-1">Según el tipo de envío</p>
+        </div>
+      </div>
+      <div class="row border rounded">
+        <div class="col">
+          <div class="d-flex w-100 justify-content-between">
+            <strong>
+              <p class="mb-1">Total</p>
+            </strong>
+            <small class="text-muted" id="totalCost">USD XXX</small>
+          </div>
+        </div>
+      </div>
+      <br>
+    </div>
+    <div class="container border-top" id="payInfo">
+      <br>
+      <h5>Forma de pago</h5>
+      <br>
+      <div class="row border rounded">
+        <div class="col">
+          <div class="form-group input-group has-validation">
+            <p class="mb-1" id="selectedPaymentMethod"></p>
+            <button type="button" class="m-1 btn btn-link" data-bs-toggle="modal"
+              data-bs-target="#paymentMethod">Seleccionar</button>
+            <div class="invalid-feedback">Seleccione un método de pago</div>
+          </div>
+        </div>
+      </div>
+      <br>
+    </div>
+
+    <div class="container text-center">
+      <button form="form" class="btn btn-primary" type="submit" id="confirm">Finalizar Compra</button>
+    </div>
+
+    <div class="modal fade" tabindex="-1" role="dialog" id="paymentMethod">
+      <div class="modal-dialog" role="document">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title">Formas de pago</h5>
+          </div>
+          <div class="modal-body">
+            <div class="container">
+              <div class="custom-control custom-radio border-top">
+                <input id="tarjeta" name="pay" type="radio" class="custom-control-input" required>
+                <strong><label class="custom-control-label" for="tarjeta">Tarjeta de crédito</label></strong>
+                <form id="cardForm">
+                  <div class="row">
+                    <div class="col-6 col-sm-9">
+                      <label for="cardNumber" class="col-form-label">Número de tarjeta</label>
+                      <input type="text" class="form-control cardInfo" id="cardNumber" required>
+                    </div>
+                    <div class="col-6 col-sm-3">
+                      <label for="code" class="col-form-label">CVC</label>
+                      <input type="text" class="form-control cardInfo" id="code" required>
+                    </div>
+                  </div>
+                  <div class="col-6 col-sm-3">
+                    <label for="vencimiento" class="col-form-label">Vencimiento (MM/AA)</label>
+                    <input type="text" class="form-control cardInfo" id="vencimiento" required>
+                  </div>
+                </form>
+              </div>
+              <br>
+              <div class="custom-control custom-radio border-top">
+                <input id="transferencia" name="pay" type="radio" class="custom-control-input" required>
+                <strong><label class="custom-control-label" for="transferencia">Transferencia
+                    Bancaria</label></strong>
+                <form id="bankTransfForm">
+                  <div class="row">
+                    <div class="col-6 col-sm-6">
+                      <label for="accountNumber" class="col-form-label">Número de cuenta</label>
+                      <input type="text" class="form-control" id="accountNumber">
+                    </div>
+                  </div>
+                </form>
+              </div>
+            </div>
+          </div>
+          <div class="modal-footer">
+            <button type="button" id="closeModal" class="btn btn-primary" data-bs-dismiss="modal">Cerrar</button>
+          </div>
+        </div>
+      </div>
+
+    </div>
+
   </main>
   <footer class="text-muted">
     <div class="container">

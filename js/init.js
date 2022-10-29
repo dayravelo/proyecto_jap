@@ -6,6 +6,7 @@ const PRODUCT_INFO_COMMENTS_URL = "https://japceibal.github.io/emercado-api/prod
 const CART_INFO_URL = "https://japceibal.github.io/emercado-api/user_cart/";
 const CART_BUY_URL = "https://japceibal.github.io/emercado-api/cart/buy.json";
 const EXT_TYPE = ".json";
+const CART = "cart"
 
 let showSpinner = function(){
   document.getElementById("spinner-wrapper").style.display = "block";
@@ -101,8 +102,33 @@ function navBarMenu(){
   document.getElementById("navbarNav").innerHTML = html;
 }
 
+//Funcion que actualiza el carrito en el Local Storage bajo el key "cart"
+function saveCart (cartList){
+  localStorage.setItem("cart", cartList);
+}
+
+//Función que obtiene del Local Storage la lista que se guarda bajo la key "cart"
+function getCart(){
+  return JSON.parse(localStorage.getItem(CART));
+}
+
+//Carga el carrito por defecto para el usuario 
+function defaultCart() {
+  let url = CART_INFO_URL + getUserId() + EXT_TYPE;
+  getJSONData(url).then(function (resultObj) {
+      if (resultObj.status === "ok") {
+          currentCart = resultObj.data;
+          currentCartProducts = currentCart.articles;
+          saveCart(JSON.stringify(currentCartProducts));
+      }
+  });
+}
+
 //Cada vez que se carga la página, se llama a la función addUserName para que aparezca el nombre del usuario que está logueado 
 document.addEventListener("DOMContentLoaded", function(e){
   navBarMenu();
   addUserName();
+  if(!localStorage.getItem(CART)){
+    defaultCart();
+  }
 });

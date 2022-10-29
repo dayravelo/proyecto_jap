@@ -5,6 +5,8 @@ let currentProductInfo;
 let currentProductImages = [];
 let currentProductComments = [];
 let relatedProducts = [];
+let shoppingCart = [];
+let item = {};
 
 //Función que obtiene el elemento "productId" guardado anteriormente en el Local Storage
 function getProductID() {
@@ -12,15 +14,15 @@ function getProductID() {
 }
 
 //Función que recibe una lista y la ordena según la puntuación, de mayor a menor
-function orderCommentsScore(currentProductComments){
+function orderCommentsScore(currentProductComments) {
     let auxComments = [];
-    auxComments = currentProductComments.sort(function(a, b) {
+    auxComments = currentProductComments.sort(function (a, b) {
 
         let aScore = parseInt(a.score);
         let bScore = parseInt(b.score);
 
-        if ( aScore > bScore ){ return -1; }
-        if ( aScore < bScore ){ return 1; }
+        if (aScore > bScore) { return -1; }
+        if (aScore < bScore) { return 1; }
         return 0;
     });
 
@@ -29,13 +31,13 @@ function orderCommentsScore(currentProductComments){
 }
 
 //Función que recibe una lista que contiene imagenes, la recorre y va agregando al html una a una
-function showProductImages(currentProductImages){
+function showProductImages(currentProductImages) {
 
     let htmlContentToAppend = "";
 
-    for(let i = 0; i < currentProductImages.length; i++){
+    for (let i = 0; i < currentProductImages.length; i++) {
         let image = currentProductImages[i];
-        
+
         htmlContentToAppend += `
                         <div class="col">
                             <img src="${image}" class="bd-placeholder-img card-img-top">
@@ -47,8 +49,8 @@ function showProductImages(currentProductImages){
     document.getElementById("productImages").innerHTML = htmlContentToAppend;
 }
 
-function showProductImagesCarrousel(currentProductImages){
-    
+function showProductImagesCarrousel(currentProductImages) {
+
     let htmlCarouselIndicators = `<div class="carousel-indicators" id="indicators">
                                     <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="0" class="active" aria-current="true" aria-label="Slide 1"></button>
                                 `;
@@ -61,13 +63,13 @@ function showProductImagesCarrousel(currentProductImages){
 
 
 
-    for(let i = 1; i < currentProductImages.length; i++){
+    for (let i = 1; i < currentProductImages.length; i++) {
         let image = currentProductImages[i];
 
         htmlCarouselIndicators += `
-                                 <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="${i}" aria-label="Slide ${i+1}"></button>
+                                 <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="${i}" aria-label="Slide ${i + 1}"></button>
                                  `
-        
+
         htmlCarrouselInner += `
                                 <div class="carousel-item">
                                     <img src="${image}" class="d-block w-100">
@@ -95,15 +97,16 @@ function showProductImagesCarrousel(currentProductImages){
 }
 
 //Función que muestra la información de un producto
-function showProductInfo(){
+function showProductInfo() {
 
+    productToItem(currentProductInfo);
     let htmlContentToAppend = "";
     htmlContentToAppend += `
                     
                         <div class="col">
                             <div class="d-flex w-100 justify-content-between">
                                 <strong> <h4 class="mb-1">${currentProductInfo.name}</h4> </strong>
-                                <button id="buy" class="float-end btn btn-success d-md-flex" type="button" data-bs-toggle="modal" data-bs-target="#exampleModal">
+                                <button id="buy" onclick="addProductToTheCart()" class="float-end btn btn-success d-md-flex" type="button" data-bs-toggle="modal" data-bs-target="#exampleModal">
                                     Comprar
                                 </button>
                             </div>
@@ -139,47 +142,24 @@ function showProductInfo(){
                 `
 
     document.getElementById("infoProduct").innerHTML = htmlContentToAppend;
-    
+
 }
 
-function goToCarrito(){
+function goToCarrito() {
     window.location = "cart.html"
 }
 
-class Item{
-    constructor(id, name, count, unitCost, currency, image){
-        this.id = id;
-        this.name = name;
-        this.count = count;
-        this.unitCost = unitCost;
-        this.currency = currency;
-        this.image = image;
-    }
-}
-
-function itemToCart(id, name, unitCost, currency, image){
-
-    let newItem = new Item(id, name, DEFAULT_COUNT, unitCost, currency, image);
-    if(!localStorage.getItem("cart")){
-        let itemsInCart = [];
-        itemsInCart.push(newItem);
-        console.log(itemsInCart);
-    } else {
-        console.log("else");
-    }
-}
-
 //Función que recibe una lista de comentarios de un producto y muestra los comentarios de un producto determinado
-function showProductComments(currentProductComments){
+function showProductComments(currentProductComments) {
 
     let htmlContentToAppend = "";
-    
-    htmlContentToAppend = `<strong> <p class="mb-1">Comentarios: </p> </strong>`;
-    if(currentProductComments.length > 0) {
 
-        for(let i = 0; i < currentProductComments.length; i++){
+    htmlContentToAppend = `<strong> <p class="mb-1">Comentarios: </p> </strong>`;
+    if (currentProductComments.length > 0) {
+
+        for (let i = 0; i < currentProductComments.length; i++) {
             let comment = currentProductComments[i];
-            
+
             htmlContentToAppend += `
                         
                             <div class="col">
@@ -201,22 +181,22 @@ function showProductComments(currentProductComments){
 }
 
 //Función que recibe una puntuación (del 1 al 5) y genera los html para mostrar esa puntuación en estrellas
-function showStars(score){
-    
+function showStars(score) {
+
     let checkedQuantity = new Array(score);
     let notCheckedQuantity = new Array();
     let htmlStars = "";
 
-    if(score<MAX_STARS){
-        notCheckedQuantity = new Array(MAX_STARS-score);
+    if (score < MAX_STARS) {
+        notCheckedQuantity = new Array(MAX_STARS - score);
     }
 
-    for(let i = 0; i < checkedQuantity.length; i++){
+    for (let i = 0; i < checkedQuantity.length; i++) {
         htmlStars += ` <span class="fa fa-star checked"></span> `;
     }
 
-    if(notCheckedQuantity.length > 0){
-        for(let i = 0; i < notCheckedQuantity.length; i++){
+    if (notCheckedQuantity.length > 0) {
+        for (let i = 0; i < notCheckedQuantity.length; i++) {
             htmlStars += ` <span class="fa fa-star"></span>`;
         }
     }
@@ -225,9 +205,9 @@ function showStars(score){
 }
 
 //Función que recibe una puntuación, una descripción y un usuario, y muestra en pantalla el comentario agregado
-function addComment(score, desc, user){
+function addComment(score, desc, user) {
     let today = new Date();
-    let currentDateTime = today.getFullYear()+'-'+(today.getMonth()+1)+'-'+today.getDate()+' '+today.getHours() + ':' + today.getMinutes() + ':' + today.getSeconds();
+    let currentDateTime = today.getFullYear() + '-' + (today.getMonth() + 1) + '-' + today.getDate() + ' ' + today.getHours() + ':' + today.getMinutes() + ':' + today.getSeconds();
     let htmlComments = document.getElementById("comments").innerHTML;
     htmlComments += `                   
                     <div class="col">
@@ -239,17 +219,17 @@ function addComment(score, desc, user){
 }
 
 //Función que recibe un elemento html del tipo select para resetearlo y además resetea el text area del comentario
-function clear(selectElement){
+function clear(selectElement) {
     document.getElementById("textComment").value = "",
-    selectElement.selectedIndex = 0;
+        selectElement.selectedIndex = 0;
 }
 
 //Función que muestra al usuario los productos relacionados al producto que está mirando
-function showRelatedProducts(relatedProducts){
+function showRelatedProducts(relatedProducts) {
 
     htmlRelatedProducts = "";
-    if(relatedProducts.length > 0){
-        for(let i = 0; i < relatedProducts.length; i++){
+    if (relatedProducts.length > 0) {
+        for (let i = 0; i < relatedProducts.length; i++) {
             let relatedProduct = relatedProducts[i];
             htmlRelatedProducts += `
                                     <div class="card text-center" onclick="setProductID(${relatedProduct.id})">
@@ -268,15 +248,53 @@ function showRelatedProducts(relatedProducts){
 
 }
 
+//Funcion que convierte un producto actual en un item para el carrito
+function productToItem(product) {
+    item.count = DEFAULT_COUNT;
+    item.currency = product.currency;
+    item.id = product.id;
+    item.image = product.images[0];
+    item.name = product.name;
+    item.unitCost = product.cost;
+}
+
+//Funcion que agrega el producto actual al carrito
+function addProductToTheCart() {
+    if (localStorage.getItem("cart")) {
+        shoppingCart = getCart();
+        if (findById(item.id)) {
+            saveCart(JSON.stringify(shoppingCart));
+        } else {
+            shoppingCart.push(item);
+            saveCart(JSON.stringify(shoppingCart));
+        }
+    } else {
+        shoppingCart.push(item);
+        saveCart(JSON.stringify(shoppingCart));
+    }
+}
+
+//Funcion que chequea si un id ya se encuentra en el carrito, y en caso de ser asi suma uno al count de ese item
+function findById(id) {
+    let finded = false;
+    for (let i = 0; i < shoppingCart.length; i++) {
+        if (shoppingCart[i].id === id) {
+            shoppingCart[i].count += 1; 
+            finded = true;
+        }
+    }
+    return finded;
+}
+
 //Escucha de evento de carga de página
-document.addEventListener("DOMContentLoaded", function(e){
+document.addEventListener("DOMContentLoaded", function (e) {
     productId = getProductID();
     let productInfoUrl = PRODUCT_INFO_URL + productId + EXT_TYPE;
 
     /*Se solicita a la url de info de producto, la información correspondiente a un determinado producto, se guarda esa información en una lista
     se guarda la lista de imagenes en otra lista, luego se ejecuta la función showProductInfo y por ultimo showProductImages*/
-    getJSONData(productInfoUrl).then (function(resultObj){
-        if(resultObj.status === "ok"){
+    getJSONData(productInfoUrl).then(function (resultObj) {
+        if (resultObj.status === "ok") {
             currentProductInfo = resultObj.data;
             currentProductImages = resultObj.data.images;
             relatedProducts = resultObj.data.relatedProducts;
@@ -291,26 +309,26 @@ document.addEventListener("DOMContentLoaded", function(e){
 
     /*Se solicita a la url de comentarios de producto, los comentarios correspondientes a un determinado producto, se guarda esos comentarios en una lista
     luego se ordena esa lista de comentarios por puntuación con la función orderCommentsScore y por último se ejecuta la función showProductComments */
-    getJSONData(productCommentsUrl).then (function(resultObj){
-        if(resultObj.status === "ok"){
+    getJSONData(productCommentsUrl).then(function (resultObj) {
+        if (resultObj.status === "ok") {
             currentProductComments = resultObj.data;
             showProductComments(orderCommentsScore(currentProductComments));
         }
     });
-    
+
     /*Evento click del botón sendComment que agrega un comentario nuevo y reseta los campos, 
     si y solo si el usuario seleccionó una puntuación e ingreso un comentario*/
-    document.getElementById("sendComment").addEventListener("click", function(){
+    document.getElementById("sendComment").addEventListener("click", function () {
         let selectElement = document.getElementById("score");
         let score = parseInt(selectElement.value);
         let textComment = document.getElementById("textComment").value;
         let user = getUserName();
-        if(textComment != "" && score != 0){
+        if (textComment != "" && score != 0) {
             addComment(score, textComment, user);
             clear(selectElement);
         } else {
             alert("Debe ingresar una puntuación y un comentario!");
         }
     });
-    
+
 });

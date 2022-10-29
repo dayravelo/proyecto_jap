@@ -233,3 +233,8 @@ a.custom-card:hover {
   height: 50px;
   width: 80px;
 }
+
+.costos {
+  border-top-width: 1in;
+  border-top: black;
+}
