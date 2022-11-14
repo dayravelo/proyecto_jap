@@ -7,6 +7,7 @@ const CART_INFO_URL = "https://japceibal.github.io/emercado-api/user_cart/";
 const CART_BUY_URL = "https://japceibal.github.io/emercado-api/cart/buy.json";
 const EXT_TYPE = ".json";
 const CART = "cart"
+const USER_NAME = "userName";
 
 let showSpinner = function(){
   document.getElementById("spinner-wrapper").style.display = "block";
@@ -43,7 +44,7 @@ let getJSONData = function(url){
 
 //Función que obtiene del Local Storage una key "userName"
 function getUserName(){
-  return localStorage.getItem("userName");
+  return localStorage.getItem(USER_NAME);
 }
 
 //Función que obtiene del Local Storage una key "userId"
@@ -54,7 +55,7 @@ function getUserId(){
 //Función que obtiene del Local Storage llama a la función getUserName la muestra en el elemento HTML con id "userName"
 function addUserName(){
   let userName = getUserName();
-  document.getElementById("userName").innerHTML = userName;
+  document.getElementById(USER_NAME).innerHTML = userName;
 }
 
 //Función que guarda en el Local Storage el productId, y redirige al usuario a la página product-info.html
@@ -68,7 +69,7 @@ borra del Local Storage el userName guardado y redirige al usuario a la página 
 function logout(){
   if(confirm("Desea cerrar sesión?")){
     window.location.href = "index.html";
-    localStorage.removeItem("userName");
+    localStorage.removeItem(USER_NAME);
     localStorage.removeItem("userId");
   }
 }
